@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- ddbctl_v1alpha1_deletetablepartitiondatajob.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

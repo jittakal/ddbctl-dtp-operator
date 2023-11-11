@@ -7,4 +7,14 @@ layout:
 - go.kubebuilder.io/v4
 projectName: ddbctl-dtp-operator
 repo: github.com/jittakal/ddbctl-dtp-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: operators.jittakal.io
+  group: ddbctl
+  kind: DeleteTablePartitionDataJob
+  path: github.com/jittakal/ddbctl-dtp-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"

@@ -1,0 +1,27 @@
+# permissions for end users to view deletetablepartitiondatajobs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: deletetablepartitiondatajob-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: ddbctl-dtp-operator
+    app.kubernetes.io/part-of: ddbctl-dtp-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: deletetablepartitiondatajob-viewer-role
+rules:
+- apiGroups:
+  - ddbctl.operators.jittakal.io
+  resources:
+  - deletetablepartitiondatajobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ddbctl.operators.jittakal.io
+  resources:
+  - deletetablepartitiondatajobs/status
+  verbs:
+  - get

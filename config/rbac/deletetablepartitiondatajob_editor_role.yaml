@@ -1,0 +1,31 @@
+# permissions for end users to edit deletetablepartitiondatajobs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: deletetablepartitiondatajob-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: ddbctl-dtp-operator
+    app.kubernetes.io/part-of: ddbctl-dtp-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: deletetablepartitiondatajob-editor-role
+rules:
+- apiGroups:
+  - ddbctl.operators.jittakal.io
+  resources:
+  - deletetablepartitiondatajobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ddbctl.operators.jittakal.io
+  resources:
+  - deletetablepartitiondatajobs/status
+  verbs:
+  - get
