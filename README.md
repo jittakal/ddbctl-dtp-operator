@@ -14,22 +14,6 @@ Efficiently delete partitions in DynamoDB tables through the declarative configu
 
 Leveraging the Kubebuilder framework ensures adherence to best practices for building scalable and maintainable Kubernetes operators.
 
-## How it Works
-
-The `ddbctl-dtp-operator` extends the functionality of Kubernetes by introducing a custom resource, DeleteTablePartitionDataJob. This resource allows you to express your intent to delete a specific partition in a DynamoDB table directly through Kubernetes manifests.
-
-```yaml
-apiVersion: ddbctl.operators.jittakal.io/v1alpha1
-kind: DeleteTablePartitionDataJob
-metadata:
-  name: delete-table-partition-data-job
-spec:
-  tableName: my-dynamodb-table
-  partitionValue: partition-key-value
-  endpointURL: http://dynamodb.local:8000
-  awsRegion: us-east-1
-```
-
 ## Pre-requisites
 
 Before you start working with the ddbctl-dtp-operator, make sure you have the following prerequisites in place:
@@ -52,84 +36,22 @@ $ brew install kubebulder
 $ brew install kustomize
 ```
 
-
-## Steps for reference
-
-- Clone empty repository
+**Clone ddbctl-dtp-operator git repository:**
 
 ```bash
 $ cd ~\workspace\git.ws
 $ git clone https://github.com/jittakal/ddbctl-dtp-operator
 $ cd ddbctl-dtp-operator
 ```
-
-- Initialize the Go Moudle
-
-```bash
-$ go mod init github.com/jittakal/ddbctl-dtp-operator
-```
-
-- Kubebuilder init
+**Deploy DeleteTablePartitionDataJob CRD:**
 
 ```bash
-$ kubebuilder init --domain operators.jittakal.io --repo github.com/jittakal/ddbctl-dtp-operator
+make deploy
 ```
-
-- Custom Resource Defination - API
 
 ```bash
-$ kubebuilder create api --group ddbctl --version v1alpha1 --kind DeleteTablePartitionDataJob
-```
+$ #quickly verify the deployments
 
-- Modify DeleteTablePartitionDataJob Spec
-
-```go
-type DeleteTablePartitionDataJobSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// DynamoDB Table Name
-	// +kubebuilder:validation:Required
-	TableName string `json:"tableName"`
-
-	// Partition Value
-	// +kubebuilder:validation:Required
-	PartitionValue string `json:"partitionValue"`
-
-	// Endpoint URL - Optional
-	// +kubebuilder:validation:Optional
-	EndpointURL string `json:"endpointURL,omitempty"`
-
-	// AWS Region
-	// +kubebuilder:default := "us-east-1"
-	// +kubebuilder:validation:Required
-	AWSRegion string `json:"awsRegion"`
-}
-```
-
-- Implement Controller Reconcile Function
-
-- Build the Controller 
-
-```bash
-$ make build # manifest generate fmt vet
-```
-
-- Build and publish docker controller manager images
-
-```bash
-$ make docker-build docker-push
-```
-
-- Deploy the CRD
-
-```bash
-$ make deploy
-```
-
-- Verify the deployment
-
-```bash
 $ kubectl get crd # new entry for deletetablepartitiondatajobs.ddbctl.operators.jittakal.io
 
 $ kubectl get namespaces # new entry for ddbctl-dtp-operator-system
@@ -139,12 +61,34 @@ $ kubectl get pods -n ddbctl-dtp-operator-system
 $ kubctl logs -f <<pod-name-from-above-command>> -n ddbctl-dtp-operator-system
 ```
 
-- Install Sample Customer Resource
+## How it Works
+
+The `ddbctl-dtp-operator` extends the functionality of Kubernetes by introducing a custom resource, DeleteTablePartitionDataJob. This resource allows you to express your intent to delete a specific partition in a DynamoDB table directly through Kubernetes manifests.
+
+```yaml
+apiVersion: ddbctl.operators.jittakal.io/v1alpha1
+kind: DeleteTablePartitionDataJob
+metadata:
+  name: delete-table-partition-data-job
+spec:
+  tableName: my-dynamodb-table
+  partitionValue: partition-key-value
+  endpointURL: http://dynamodb.local:8000
+  awsRegion: us-east-1
+```
+
+- Customer Resource for DeleteTablePartitionDataJob CRD
 
 ```bash
-$ #Open in new terminal
-$ kubectl create -f config/samples/ddbctl_v1alpha1_deletepartitiondatajob.yaml
+$ kubectl create -f delete_partition_data_tablename_job.yaml
 
+$ # Sample
+$ kubectl create -f config/samples/ddbctl_v1alpha1_deletepartitiondatajob.yaml
+```
+
+- View Delete Table Partition Data Job - Summary
+
+```bash
 $ kubectl get jobs # default - namespace
 
 $ kubectl get pods
@@ -152,11 +96,14 @@ $ kubectl get pods
 $ kubectl logs <<podname-of-delete-table-partition-data-job>> # verify log table name and number of records delete / delete summary report on job completion
 ```
 
-
 ## Open Issues
 
 - Limit the operator's ability to create Jobs exclusively within the "default" namespace, and adjust the RBAC permissions of the controller manager accordingly.
 
+## ToDo
+
+- Automatically remove successfully completed jobs after 5 or 30 minutes.
+- Automatically delete failed jobs older than the last 5 instances.
 
 ## Reference
 
