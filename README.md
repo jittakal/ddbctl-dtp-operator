@@ -1,6 +1,63 @@
-# ddbctl-dtp-operator
+# Kubernetes (custom-sample) Operator - ddbctl-dtp-operator
 
-DynamoDB Delete Table Partition Kubernetes Operator (Golang) using Kubebuilder framework
+## Overview
+
+The `ddbctl-dtp-operator` (DynamoDB Controller - Delete Table Partition) – a Kubernetes Operator written in Golang using the Kubebuilder framework. This operator simplifies the process of managing DynamoDB table partitions within a Kubernetes environment.
+
+## Features
+
+**Automated Partition Deletion:**
+
+Efficiently delete partitions in DynamoDB tables through the declarative configuration provided by Kubernetes Custom Resources.
+
+**Built with Kubebuilder:**
+
+Leveraging the Kubebuilder framework ensures adherence to best practices for building scalable and maintainable Kubernetes operators.
+
+## How it Works
+
+The `ddbctl-dtp-operator` extends the functionality of Kubernetes by introducing a custom resource, DeleteTablePartitionDataJob. This resource allows you to express your intent to delete a specific partition in a DynamoDB table directly through Kubernetes manifests.
+
+```yaml
+apiVersion: ddbctl.operators.jittakal.io/v1alpha1
+kind: DeleteTablePartitionDataJob
+metadata:
+  name: delete-table-partition-data-job
+spec:
+  tableName: my-dynamodb-table
+  partitionValue: partition-key-value
+  endpointURL: http://dynamodb.local:8000
+  awsRegion: us-east-1
+```
+
+## Pre-requisites
+
+- Kubernetes local cluster using microk8s up and running.
+- DynamoDB local kubernetes deployment [steps](https://medium.com/@jittakal/running-dynamodb-local-within-microk8s-a-step-by-step-guide-with-sample-code-38aac0aea803) followed.
+- Kubebuilder and related pre-requisites installed.
+
+## Pre-requisites
+
+Before you start working with the ddbctl-dtp-operator, make sure you have the following prerequisites in place:
+
+**Kubernetes Local Cluster:**
+
+Ensure that you have a local Kubernetes cluster set up using microk8s. If you haven't set up microk8s, you can follow the official documentation or use the microk8s up command to initialize a local cluster.
+
+**DynamoDB Local Kubernetes Deployment:**
+
+Follow the [steps](https://medium.com/@jittakal/running-dynamodb-local-within-microk8s-a-step-by-step-guide-with-sample-code-38aac0aea803) outlined in the DynamoDB local Kubernetes deployment guide to deploy DynamoDB locally within your microk8s cluster. This local DynamoDB instance will serve as the database for your ddbctl-dtp-operator.
+
+**Kubebuilder Installation:**
+
+Ensure that Kubebuilder and its related dependencies are installed on your local machine. You can follow the Kubebuilder installation guide provided in the official documentation to set up the necessary tooling for building Kubernetes operators.
+
+```bash
+$ brew install kubebulder
+
+$ brew install kustomize
+```
+
 
 ## Steps for reference
 
