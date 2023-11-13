@@ -1,5 +1,15 @@
 ## Steps for reference
 
+- Kubebuilder Installation
+
+Ensure that Kubebuilder and its related dependencies are installed on your local machine. You can follow the Kubebuilder installation guide provided in the official documentation to set up the necessary tooling for building Kubernetes operators.
+
+```bash
+$ brew install kubebulder
+
+$ brew install kustomize
+```
+
 - Clone empty repository
 
 ```bash

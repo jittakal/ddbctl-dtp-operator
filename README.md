@@ -26,16 +26,6 @@ Ensure that you have a local Kubernetes cluster set up using microk8s. If you ha
 
 Follow the [steps](https://medium.com/@jittakal/running-dynamodb-local-within-microk8s-a-step-by-step-guide-with-sample-code-38aac0aea803) outlined in the DynamoDB local Kubernetes deployment guide to deploy DynamoDB locally within your microk8s cluster. This local DynamoDB instance will serve as the database for your ddbctl-dtp-operator.
 
-**Kubebuilder Installation:**
-
-Ensure that Kubebuilder and its related dependencies are installed on your local machine. You can follow the Kubebuilder installation guide provided in the official documentation to set up the necessary tooling for building Kubernetes operators.
-
-```bash
-$ brew install kubebulder
-
-$ brew install kustomize
-```
-
 **Clone ddbctl-dtp-operator git repository:**
 
 ```bash
