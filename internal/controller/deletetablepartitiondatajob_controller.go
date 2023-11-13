@@ -19,7 +19,6 @@ package controller
 import (
 	"context"
 
-	kbatch "k8s.io/api/batch/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -126,9 +125,9 @@ func (r *DeleteTablePartitionDataJobReconciler) Reconcile(ctx context.Context, r
 // SetupWithManager sets up the controller with the Manager.
 func (r *DeleteTablePartitionDataJobReconciler) SetupWithManager(mgr ctrl.Manager) error {
 
-	if err := mgr.GetFieldIndexer().IndexField(context.Background(), &kbatch.Job{}, jobOwnerKey, func(rawObj client.Object) []string {
+	if err := mgr.GetFieldIndexer().IndexField(context.Background(), &batchv1.Job{}, jobOwnerKey, func(rawObj client.Object) []string {
 		// grab the job object, extract the owner...
-		job := rawObj.(*kbatch.Job)
+		job := rawObj.(*batchv1.Job)
 		owner := metav1.GetControllerOf(job)
 		if owner == nil {
 			return nil
@@ -146,6 +145,6 @@ func (r *DeleteTablePartitionDataJobReconciler) SetupWithManager(mgr ctrl.Manage
 
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&ddbctlv1alpha1.DeleteTablePartitionDataJob{}).
-		Owns(&kbatch.Job{}).
+		Owns(&batchv1.Job{}).
 		Complete(r)
 }
