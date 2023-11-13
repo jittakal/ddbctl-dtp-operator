@@ -32,12 +32,6 @@ spec:
 
 ## Pre-requisites
 
-- Kubernetes local cluster using microk8s up and running.
-- DynamoDB local kubernetes deployment [steps](https://medium.com/@jittakal/running-dynamodb-local-within-microk8s-a-step-by-step-guide-with-sample-code-38aac0aea803) followed.
-- Kubebuilder and related pre-requisites installed.
-
-## Pre-requisites
-
 Before you start working with the ddbctl-dtp-operator, make sure you have the following prerequisites in place:
 
 **Kubernetes Local Cluster:**
