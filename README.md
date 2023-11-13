@@ -1,8 +1,8 @@
-# Kubernetes (custom-sample) Operator - ddbctl-dtp-operator
+# Kubernetes Operator - ddbctl-dtp-operator
 
 ## Overview
 
-The `ddbctl-dtp-operator` (DynamoDB Controller - Delete Table Partition) – a Kubernetes Operator written in Golang using the Kubebuilder framework. This operator simplifies the process of managing DynamoDB table partitions within a Kubernetes environment.
+The `ddbctl-dtp-operator` (custom, sample) (DynamoDB Controller - Delete Table Partition) – a Kubernetes Operator written in Golang using the Kubebuilder framework. This operator simplifies the process of managing DynamoDB table partitions within a Kubernetes environment.
 
 ## Features
 
