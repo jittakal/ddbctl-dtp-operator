@@ -3,11 +3,11 @@ kind: DeleteTablePartitionDataJob
 metadata:
   labels:
     app.kubernetes.io/name: deletetablepartitiondatajob
-    app.kubernetes.io/instance: deletetablepartitiondatajob-sample
+    app.kubernetes.io/instance: deletetablepartitiondatajob-orders
     app.kubernetes.io/part-of: ddbctl-dtp-operator
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/created-by: ddbctl-dtp-operator
-  name: deletetablepartitiondatajob-sample
+  name: deletetablepartitiondatajob-orders
 spec:
   tableName: Orders
   partitionValue: TESTTENANTID

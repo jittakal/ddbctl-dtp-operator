@@ -28,8 +28,22 @@ type DeleteTablePartitionDataJobSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of DeleteTablePartitionDataJob. Edit deletetablepartitiondatajob_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// DynamoDB Table Name
+	// +kubebuilder:validation:Required
+	TableName string `json:"tableName"`
+
+	// Partition Value
+	// +kubebuilder:validation:Required
+	PartitionValue string `json:"partitionValue"`
+
+	// Endpoint URL - Optional
+	// +kubebuilder:validation:Optional
+	EndpointURL string `json:"endpointURL,omitempty"`
+
+	// AWS Region
+	// +kubebuilder:default := "us-east-1"
+	// +kubebuilder:validation:Required
+	AWSRegion string `json:"awsRegion"`
 }
 
 // DeleteTablePartitionDataJobStatus defines the observed state of DeleteTablePartitionDataJob

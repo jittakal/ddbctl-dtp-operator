@@ -1,0 +1,42 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ddbctl.operators.jittakal.io
+  resources:
+  - deletetablepartitiondatajobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ddbctl.operators.jittakal.io
+  resources:
+  - deletetablepartitiondatajobs/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ddbctl.operators.jittakal.io
+  resources:
+  - deletetablepartitiondatajobs/status
+  verbs:
+  - get
+  - patch
+  - update
