@@ -2,6 +2,9 @@
 
 DynamoDB Delete Table Partition Kubernetes Operator (Golang) using Kubebuilder framework
 
+## Steps for reference
+
+- Clone empty repository
 
 ```bash
 $ cd ~\workspace\git.ws
@@ -9,48 +12,71 @@ $ git clone https://github.com/jittakal/ddbctl-dtp-operator
 $ cd ddbctl-dtp-operator
 ```
 
-Initialize the Go Moudle
+- Initialize the Go Moudle
 
 ```bash
 $ go mod init github.com/jittakal/ddbctl-dtp-operator
 ```
 
-Kubebuilder init
+- Kubebuilder init
 
 ```bash
 $ kubebuilder init --domain operators.jittakal.io --repo github.com/jittakal/ddbctl-dtp-operator
 ```
 
-Custom Resource Defination - API
+- Custom Resource Defination - API
 
 ```bash
 $ kubebuilder create api --group ddbctl --version v1alpha1 --kind DeleteTablePartitionDataJob
 ```
 
-Modify DeleteTablePartitionDataJob Spec
+- Modify DeleteTablePartitionDataJob Spec
 
-Implement Controller Rconcilation Function
+```go
+type DeleteTablePartitionDataJobSpec struct {
+	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+	// Important: Run "make" to regenerate code after modifying this file
 
-Build the Controller 
+	// DynamoDB Table Name
+	// +kubebuilder:validation:Required
+	TableName string `json:"tableName"`
+
+	// Partition Value
+	// +kubebuilder:validation:Required
+	PartitionValue string `json:"partitionValue"`
+
+	// Endpoint URL - Optional
+	// +kubebuilder:validation:Optional
+	EndpointURL string `json:"endpointURL,omitempty"`
+
+	// AWS Region
+	// +kubebuilder:default := "us-east-1"
+	// +kubebuilder:validation:Required
+	AWSRegion string `json:"awsRegion"`
+}
+```
+
+- Implement Controller Reconcile Function
+
+- Build the Controller 
 
 ```bash
 $ make build # manifest generate fmt vet
 ```
 
-Build and publish docker controller manager images
+- Build and publish docker controller manager images
 
 ```bash
 $ make docker-build docker-push
 ```
 
-
-Deploy the CRD
+- Deploy the CRD
 
 ```bash
 $ make deploy
 ```
 
-Verify the deployment
+- Verify the deployment
 
 ```bash
 $ kubectl get crd # new entry for deletetablepartitiondatajobs.ddbctl.operators.jittakal.io
@@ -62,7 +88,7 @@ $ kubectl get pods -n ddbctl-dtp-operator-system
 $ kubctl logs -f <<pod-name-from-above-command>> -n ddbctl-dtp-operator-system
 ```
 
-Install Sample Customer Resource
+- Install Sample Customer Resource
 
 ```bash
 $ #Open in new terminal
@@ -76,6 +102,12 @@ $ kubectl logs <<podname-of-delete-table-partition-data-job>> # verify log table
 ```
 
 
-# Open Issues
+## Open Issues
 
 - Limit the operator's ability to create Jobs exclusively within the "default" namespace, and adjust the RBAC permissions of the controller manager accordingly.
+
+
+## Reference
+
+- [Docker image - operator controller manager](https://hub.docker.com/repository/docker/jittakal/ddbctl-dtp-operator/general)
+- [Docker image - job](https://hub.docker.com/repository/docker/jittakal/go-dynamodb-partition-delete/general)
