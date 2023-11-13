@@ -93,7 +93,10 @@ $ kubectl get jobs # default - namespace
 
 $ kubectl get pods
 
-$ kubectl logs <<podname-of-delete-table-partition-data-job>> # verify log table name and number of records delete / delete summary report on job completion
+$ kubectl logs <<podname-of-delete-table-partition-data-job>> 
+
+$ # verify log table name and number of records delete 
+$ # delete summary report on job completion
 ```
 
 ## Open Issues
@@ -109,3 +112,20 @@ $ kubectl logs <<podname-of-delete-table-partition-data-job>> # verify log table
 
 - [Docker image - operator controller manager](https://hub.docker.com/repository/docker/jittakal/ddbctl-dtp-operator/general)
 - [Docker image - job](https://hub.docker.com/repository/docker/jittakal/go-dynamodb-partition-delete/general)
+
+
+## License
+
+Copyright 2023.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
